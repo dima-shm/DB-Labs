@@ -95,7 +95,10 @@
                 android:layout_below="@+id/textView_getValue"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:focusable="false"/>
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
             <Button
                 android:id="@+id/button_getValue"
                 android:layout_width="wrap_content"

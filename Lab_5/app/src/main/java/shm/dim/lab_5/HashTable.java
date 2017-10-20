@@ -54,7 +54,7 @@ public class HashTable {
         return formatStr;
     }
 
-    // Записать в файл значение
+    // Записать в файл 10 строк
     public static void initLineToFile(File file){
         try (RandomAccessFile raf = new RandomAccessFile(file, "rw")) {
             for(int i = 0; i < 10; i++)
