@@ -65,8 +65,8 @@ public class FileManager extends AppCompatActivity {
                 gson.fromJson(str, Person.class);
                 sb.append(str + "\n");
                 str = new String();
-                if ( b == 123)
-                    b = raf.read();
+                if ( b == 123)      // Если символ ""
+                    b = raf.read(); // Пропускаем этот символ и читаем дальше
             }while (b != -1);
         }
         catch (IOException e) {

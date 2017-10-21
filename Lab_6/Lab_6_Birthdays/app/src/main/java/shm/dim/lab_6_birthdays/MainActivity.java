@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -18,6 +17,8 @@ import com.google.gson.JsonParser;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Диалоговое окно для сообщения о создании файла
-    private void createExceptionDialogMsg(String msg) {
+    private void createDialogMsg(String msg) {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setMessage(msg).setPositiveButton("Ok",
                 new DialogInterface.OnClickListener() {
@@ -56,6 +57,14 @@ public class MainActivity extends AppCompatActivity {
                 });
         AlertDialog ad = b.create();
         ad.show();
+    }
+
+    // Проверка формата введенной даты рождения
+    private boolean checkFormatDate(String str) {
+        String DATE_FORMAT = "dd.MM.yyyy";
+        SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT);
+        df.setLenient(false);
+        return df.parse(str, new ParsePosition(0)) != null;
     }
 
     // Получить из файла объект по дню его рождения
@@ -82,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         catch (IOException e) {
             Log.d("Log_06", e.getMessage());
             Log.d("Log_06", "Не удалось прочитать данные из файла " + f.getName());
-            createExceptionDialogMsg("Не удалось прочитать данные из файла ContactsPrivate.json");
+            createDialogMsg("Не удалось прочитать данные из файла ContactsPrivate.json");
         }
         Log.d("Log_06", "Данные из файла " + f.getName() + " прочитанны");
         return person;
@@ -91,9 +100,13 @@ public class MainActivity extends AppCompatActivity {
     // Обработчики нажатия клавиш сохранения
     public void onClick_GetPublic(View view) {
         Person person = getPersonFromFile(etBirthDate.getText().toString(), filePublic);
-        etSecondName.setText(person.getSecondName());
-        etFirstName.setText(person.getFirstName());
-        etPhoneNumber.setText(person.getPhoneNumber());
+        if(checkFormatDate(person.getBirthDate())) {
+            etSecondName.setText(person.getSecondName());
+            etFirstName.setText(person.getFirstName());
+            etPhoneNumber.setText(person.getPhoneNumber());
+        }
+        else
+            checkFormatDate("Неверный формат даты рождения");
     }
     public void onClick_GetPrivate(View view) {
         Person person = getPersonFromFile(etBirthDate.getText().toString(), filePrivate);
