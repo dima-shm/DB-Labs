@@ -2,13 +2,13 @@ package shm.dim.lab_6_contacts;
 
 public class Person {
 
-    String secondName, firstName, phoneNumber, birthDate;
+    String secondName, firstName, phoneNumber, birthday;
 
-    public Person(String secondName, String firstName, String phoneNumber, String birthDate) {
+    public Person(String secondName, String firstName, String phoneNumber, String birthday) {
         this.secondName = secondName;
         this.firstName = firstName;
         this.phoneNumber = phoneNumber;
-        this.birthDate = birthDate;
+        this.birthday = birthday;
     }
 
     public void setSecondName( String secondName) {
@@ -35,16 +35,16 @@ public class Person {
         return phoneNumber;
     }
 
-    public void setBirthDate( String birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
-    public String getBirthDate() {
-        return birthDate;
+    public String getBirthday() {
+        return birthday;
     }
 
     @Override
     public String toString() {
-        return secondName + " "  + firstName + " " + phoneNumber + " " + birthDate;
+        return secondName + " "  + firstName + " " + phoneNumber + " " + birthday;
     }
 }

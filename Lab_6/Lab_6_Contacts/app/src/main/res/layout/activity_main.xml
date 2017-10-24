@@ -88,7 +88,7 @@
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="16dp" />
             <EditText
-                android:id="@+id/etBirthDate"
+                android:id="@+id/etBirthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -112,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/etBirthDate"
+                android:layout_below="@+id/etBirthday"
                 android:onClick="onClick_SavePrivate"
                 android:text="Save private" />
 

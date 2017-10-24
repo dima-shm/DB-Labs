@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
 public class MainActivity extends AppCompatActivity {
 
     private File filePublic, filePrivate;
-    private EditText etSecondName, etFirstName, etPhoneNumber, etBirthDate;
+    private EditText etSecondName, etFirstName, etPhoneNumber, etBirthday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         etSecondName = (EditText)findViewById(R.id.etSecondName);
         etFirstName = (EditText)findViewById(R.id.etFirstName);
         etPhoneNumber = (EditText)findViewById(R.id.etPhoneNumber);
-        etBirthDate = (EditText)findViewById(R.id.etBirthDate);
+        etBirthday = (EditText)findViewById(R.id.etBirthday);
     }
 
     // Диалоговое окно для сообщения о создании файла
@@ -99,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
     // Обработчики нажатия клавиш сохранения
     public void onClick_GetPublic(View view) {
-        Person person = getPersonFromFile(etBirthDate.getText().toString(), filePublic);
-        if(checkFormatDate(person.getBirthDate())) {
+        Person person = getPersonFromFile(etBirthday.getText().toString(), filePublic);
+        if(checkFormatDate(person.getBirthday())) {
             etSecondName.setText(person.getSecondName());
             etFirstName.setText(person.getFirstName());
             etPhoneNumber.setText(person.getPhoneNumber());
@@ -109,6 +109,6 @@ public class MainActivity extends AppCompatActivity {
             checkFormatDate("Неверный формат даты рождения");
     }
     public void onClick_GetPrivate(View view) {
-        Person person = getPersonFromFile(etBirthDate.getText().toString(), filePrivate);
+        Person person = getPersonFromFile(etBirthday.getText().toString(), filePrivate);
     }
 }

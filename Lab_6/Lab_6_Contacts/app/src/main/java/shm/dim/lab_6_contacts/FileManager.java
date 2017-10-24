@@ -16,7 +16,7 @@ import java.io.RandomAccessFile;
 public class FileManager extends AppCompatActivity {
 
     // Проверка наличия файла в External памяти
-    private static boolean existBase(File file) {
+    private static boolean exist(File file) {
         boolean rc;
         if(rc = file.exists())
             Log.d("Log_06", "Файл " + file.getName() + " существует");
@@ -26,7 +26,7 @@ public class FileManager extends AppCompatActivity {
     }
 
     // Создание файла в External памяти
-    private static void createFile(File file) {
+    private static void create(File file) {
         try {
             file.createNewFile();
             Log.d("Log_06", "Файл " + file.getName() + " создан");
@@ -37,9 +37,9 @@ public class FileManager extends AppCompatActivity {
     }
 
     // Запись в файл
-    public static void writeToFile(Person person, File f) {
-        if(!existBase(f)) {
-            createFile(f);
+    public static void write(Person person, File f) {
+        if(!exist(f)) {
+            create(f);
         }
         Gson gson = new GsonBuilder().create();
         String str = gson.toJson(person);
@@ -54,7 +54,7 @@ public class FileManager extends AppCompatActivity {
     }
 
     // Прочитать из файла
-    public static String readFromFile(File f) {
+    public static String read(File f) {
         String str = new String();
         StringBuilder sb = new StringBuilder();
         Gson gson = new GsonBuilder().create();

@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private File filePublic, filePrivate;
     private TextView tvFile;
-    private EditText etSecondName, etFirstName, etPhoneNumber, etBirthDate;
+    private EditText etSecondName, etFirstName, etPhoneNumber, etBirthday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
         etSecondName = (EditText)findViewById(R.id.etSecondName);
         etFirstName = (EditText)findViewById(R.id.etFirstName);
         etPhoneNumber = (EditText)findViewById(R.id.etPhoneNumber);
-        etBirthDate = (EditText)findViewById(R.id.etBirthDate);
+        etBirthday = (EditText)findViewById(R.id.etBirthday);
     }
 
     // Очистить текст во всех используемых EditView
     private void clearTextOnEditView() {
-        etSecondName.setText(""); etFirstName.setText(""); etPhoneNumber.setText(""); etBirthDate.setText("");
+        etSecondName.setText(""); etFirstName.setText(""); etPhoneNumber.setText(""); etBirthday.setText("");
     }
 
     // Диалоговое окно для сообщения о создании файла
@@ -81,22 +81,22 @@ public class MainActivity extends AppCompatActivity {
     // Обработчики нажатия клавиш сохранения
     public void onClick_SavePublic(View view) {
         Person person = new Person(etSecondName.getText().toString(), etFirstName.getText().toString(),
-                etPhoneNumber.getText().toString(), etBirthDate.getText().toString());
+                etPhoneNumber.getText().toString(), etBirthday.getText().toString());
         clearTextOnEditView();
-        if(checkFormatPhoneNumber(person.getPhoneNumber()) && checkFormatDate(person.getBirthDate())) {
-            FileManager.writeToFile(person, filePublic);
-            tvFile.setText(FileManager.readFromFile(filePublic));
+        if(checkFormatPhoneNumber(person.getPhoneNumber()) && checkFormatDate(person.getBirthday())) {
+            FileManager.write(person, filePublic);
+            tvFile.setText(FileManager.read(filePublic));
         }
         else
             createDialogMsg("Неверный формат телефона и даты рождения");
     }
     public void onClick_SavePrivate(View view) {
         Person person = new Person(etSecondName.getText().toString(), etFirstName.getText().toString(),
-                etPhoneNumber.getText().toString(), etBirthDate.getText().toString());
+                etPhoneNumber.getText().toString(), etBirthday.getText().toString());
         clearTextOnEditView();
-        if(checkFormatPhoneNumber(person.getPhoneNumber()) && checkFormatDate(person.getBirthDate())) {
-            FileManager.writeToFile(person, filePrivate);
-            tvFile.setText(FileManager.readFromFile(filePrivate));
+        if(checkFormatPhoneNumber(person.getPhoneNumber()) && checkFormatDate(person.getBirthday())) {
+            FileManager.write(person, filePrivate);
+            tvFile.setText(FileManager.read(filePrivate));
         }
         else
             createDialogMsg("Неверный формат телефона и даты рождения");
