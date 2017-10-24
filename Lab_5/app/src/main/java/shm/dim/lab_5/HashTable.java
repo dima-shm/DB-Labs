@@ -4,6 +4,11 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,84 +17,71 @@ import java.io.RandomAccessFile;
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 public class HashTable {
 
-    private static final int MAXLENGHTSTR = 10;
-
     // Поулчить хеш-код
     public static int getHashCode(String key) {
-        return (key.hashCode() % MAXLENGHTSTR * key.length());
+        return (key.hashCode() % 10 * key.length());
     }
 
     // Добавить элемент
-    public static void insertItem(String key, String value, File file) {
-        Item item = new Item(key, value);
+    public static void add(Item item, File file) throws FileNotFoundException {
+        writeItemToFile(item, file);
+    }
+
+    // Найти элемент по ключу
+    public static Item find(Item item, File file) throws FileNotFoundException {
+        Item newItem = getItemFromFile(item.getKey(), file);
+        if(newItem != null) {
+            Log.d("Log_05", "Найдено значение: " + item.getValue() + " в файле: " + file.getName() + " в строке: " + item.getKey());
+            return newItem;
+        }
+        else
+            return null;
+    }
+
+    // Записать в файл элемент
+    private static void writeItemToFile(Item item, File file) throws FileNotFoundException {
         int hash = getHashCode(item.getKey());
-        writeLineToFile(hash, item.getValue(), file);
+        Gson gson = new GsonBuilder().create();
+        String str = gson.toJson(item);
+        FileManager.writeToFile(str, hash, file);
     }
 
-    // Получить значение по ключу
-    public static String getValueOnKey(String key, File file) throws FileNotFoundException {
-        int hash = getHashCode(key);
+    // Получить из файла объект по его ключу
+    private static Item getItemFromFile(String key, File f) {
+        Item item = new Item();
         String str;
-        try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
-            raf.seek(11 * hash);
-            str = raf.readLine();
-            if(str != null) {
-                Log.d("Log_05", "Найдено значение в файле: " + file.getName() + "; В строке: " + hash + "; Значение: " + str);
-                return str;
-            }
-        } catch (IOException e){
-            Log.d("Log_05", e.getMessage());
-        }
-        return "Значение не найдено";
-    }
-
-    // Получить преобразованную строку
-    public static String getFormatString(String str) {
-        String formatStr = new String();
-        formatStr = formatStr.concat(str);
-        if(str.length() < MAXLENGHTSTR) {
-            for (int i = (MAXLENGHTSTR - str.length()); i != 0; i--)
-                formatStr = formatStr.concat(" "); // Заполнить пробелами оставшееся пространство
-        }
-        return formatStr;
-    }
-
-    // Записать в файл 10 строк
-    public static void initLineToFile(File file){
-        try (RandomAccessFile raf = new RandomAccessFile(file, "rw")) {
-            for(int i = 0; i < 10; i++)
-                raf.writeBytes("          " + "\n");
-        } catch (IOException e){
-            Log.d("Log_05", e.getMessage());
-        }
-    }
-
-    // Записать в файл значение
-    public static void writeLineToFile(int key, String value, File file){
-        String str = getFormatString(value);
-        try (RandomAccessFile raf = new RandomAccessFile(file, "rw")) {
-            raf.seek(11 * key);
-            raf.writeBytes(str + "\n");
-            Log.d("Log_05", "Данные записаны в файл: " + file.getName() + "; В строку: " + key + "; Значение: " + str);
-        } catch (IOException e){
-            Log.d("Log_05", e.getMessage());
-        }
-    }
-
-    // Прочитать данные из файла
-    public static String readDataFromFile(File file){
-        String str = new String();
-        try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
-            int b = raf.read();
-            while(b != -1) {
-                str += (char)b;
-                b = raf.read();
-            }
-            Log.d("Log_05", "Данные из файла " + file.getName() + " прочитаны");
+        try (RandomAccessFile raf = new RandomAccessFile(f, "r")) {
+            int b = 32;
+            do{
+                str = raf.readLine();
+                if (str == null)
+                    break;
+                else if(!str.equals("                                    ")) {
+                    str = str.trim();
+                    if(str.indexOf("-") == 0)
+                        str = str.substring(1);
+                    String[] subStr = str.split("-");
+                    JsonObject jsonObject;
+                    for(int i = 0; i < subStr.length; i ++) {
+                        jsonObject = new JsonParser().parse(subStr[i].toString()).getAsJsonObject();
+                        if (key.equals(jsonObject.get("key").getAsString())) {
+                            item = new Item(jsonObject.get("key").getAsString(),
+                                    jsonObject.get("value").getAsString());
+                            return item;
+                        }
+                    }
+                }
+                else {
+                    item = null;
+                }
+                if (b == 123)       // Если символ ""
+                    b = raf.read(); // Пропускаем этот символ и читаем дальше
+            }while (b != -1);
         }
         catch (IOException e) {
-            Log.d("Log_05", e.getMessage());
+            Log.d("Log_06", e.getMessage());
         }
-        return str;
+        Log.d("Log_06", "Данные из файла " + f.getName() + " прочитанны");
+        return item;
     }
 }

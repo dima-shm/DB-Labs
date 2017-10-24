@@ -1,17 +1,15 @@
 package shm.dim.lab_5;
 
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 public class MainActivity extends AppCompatActivity {
@@ -31,11 +29,12 @@ public class MainActivity extends AppCompatActivity {
         file = new File(this.getFilesDir(), "Lab.txt");
         file.delete();
 
-        if(!existBase(file))
-            createFile(file);
+        if(!FileManager.existFile(file))
+            FileManager.createFile(file);
 
-        HashTable.initLineToFile(file);
-        textView_textOnFile.setText(HashTable.readDataFromFile(file));
+        FileManager.initLineToFile(file);
+
+        textView_textOnFile.setText(FileManager.readFile(file));
     }
 
     // Инициализировать все используемые View
@@ -47,37 +46,21 @@ public class MainActivity extends AppCompatActivity {
         textView_textOnFile = (TextView) findViewById(R.id.textView_textOnFile);
     }
 
-    // Проверка наличия файла в Internal памяти
-    private boolean existBase(File file) {
-        boolean rc;
-        if(rc = file.exists())
-            Log.d("Log_05", "Файл " + file.getName() + " существует");
-        else
-            Log.d("Log_05", "Файл " + file.getName() + " не найден");
-        return rc;
-    }
-
-    // Создание файла в Internal памяти
-    private void createFile(File file) {
-        try {
-            file.createNewFile();
-            Log.d("Log_05", "Файл " + file.getName() + " создан");
-        }
-        catch (IOException e) {
-            Log.d("Log_05", e.getMessage());
-        }
-    }
-
     // Обработчики кнопок
-    public void onClick_Save(View view) {
-        HashTable.insertItem(editText_setKey.getText().toString(),
-                             editText_setValue.getText().toString(),
-                             file);
+    public void onClick_Save(View view) throws FileNotFoundException {
+        Item item = new Item(editText_setKey.getText().toString(),
+                             editText_setValue.getText().toString());
+        HashTable.add(item, file);
         editText_setKey.setText("");
         editText_setValue.setText("");
-        textView_textOnFile.setText(new String(HashTable.readDataFromFile(file)));
+        textView_textOnFile.setText(new String(FileManager.readFile(file)));
     }
     public void onClick_GetValue(View view) throws FileNotFoundException {
-        editText_getValue.setText(HashTable.getValueOnKey(editText_getKey.getText().toString(), file));
+        Item item = new Item();
+        item.setKey(editText_getKey.getText().toString());
+        if((item = HashTable.find(item, file)) != null)
+            editText_getValue.setText(item.getValue());
+        else
+            editText_getValue.setText("Значение не найдено");
     }
 }
