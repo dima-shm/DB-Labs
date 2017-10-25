@@ -1,4 +1,4 @@
-package shm.dim.lab_5;
+package shm.dim.lab_5.file_manager;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -51,7 +51,7 @@ public class FileManager {
                 s = rRaf.readLine();
             }
             wRaf.skipBytes(37*line);
-            wRaf.writeBytes("-" + str.concat(s));
+            wRaf.writeBytes(">" + str.concat(s));
             Log.d("Log_05", "Данные: " + str + " записаны в файл: " + file.getName() + "; в строку: " + line);
         }
         catch (IOException e) {

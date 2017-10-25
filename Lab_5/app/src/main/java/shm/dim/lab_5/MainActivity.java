@@ -11,6 +11,10 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import shm.dim.lab_5.file_manager.FileManager;
+import shm.dim.lab_5.hash_table.HashTable;
+import shm.dim.lab_5.item.Item;
+
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 public class MainActivity extends AppCompatActivity {
 
@@ -53,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         HashTable.add(item, file);
         editText_setKey.setText("");
         editText_setValue.setText("");
-        textView_textOnFile.setText(new String(FileManager.readFile(file)));
+        textView_textOnFile.setText(FileManager.readFile(file));
     }
     public void onClick_GetValue(View view) throws FileNotFoundException {
         Item item = new Item();

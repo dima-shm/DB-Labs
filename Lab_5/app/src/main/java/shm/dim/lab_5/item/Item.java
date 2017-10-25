@@ -1,4 +1,4 @@
-package shm.dim.lab_5;
+package shm.dim.lab_5.item;
 
 public class Item {
 
