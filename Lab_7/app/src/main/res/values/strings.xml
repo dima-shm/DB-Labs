@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Заметки</string>
+    <string name="enterNoteText">Введите текст заметки</string>
+    <string name="add">Добавить</string>
+    <string name="change">Изменить</string>
+    <string name="remove">Удалить</string>
+</resources>
