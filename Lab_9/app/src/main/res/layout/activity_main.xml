@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="shm.dim.lab_9.MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextView"
+                android:id="@+id/textViewId"
+                android:text="@string/id" />
+            <EditText
+                android:id="@+id/editTextId"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"/>
+
+            <TextView
+                style="@style/TextView"
+                android:id="@+id/textViewF"
+                android:text="@string/f" />
+            <EditText
+                android:id="@+id/editTextF"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
+
+            <TextView
+                style="@style/TextView"
+                android:id="@+id/textViewT"
+                android:text="@string/t" />
+            <EditText
+                android:id="@+id/editTextT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+            <Button
+                style="@style/Button"
+                android:id="@+id/buttonInsert"
+                android:text="@string/insert" />
+            <Button
+                style="@style/Button"
+                android:id="@+id/buttonSelect"
+                android:text="@string/select" />
+            <Button
+                style="@style/Button"
+                android:id="@+id/buttonSelectRaw"
+                android:text="@string/select_raw" />
+            <Button
+                style="@style/Button"
+                android:id="@+id/buttonUpdate"
+                android:text="@string/update" />
+            <Button
+                style="@style/Button"
+                android:id="@+id/buttonDelete"
+                android:text="@string/delete" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

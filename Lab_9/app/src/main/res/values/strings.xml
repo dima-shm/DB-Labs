@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Lab_9</string>
+    <string name="id">ID</string>
+    <string name="f">F</string>
+    <string name="t">T</string>
+    <string name="insert">insert</string>
+    <string name="select">select</string>
+    <string name="select_raw">select raw</string>
+    <string name="update">update</string>
+    <string name="delete">delete</string>
+</resources>
