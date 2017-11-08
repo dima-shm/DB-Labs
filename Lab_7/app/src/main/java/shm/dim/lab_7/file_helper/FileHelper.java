@@ -5,19 +5,15 @@ import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import shm.dim.lab_7.notes.Note;
-import shm.dim.lab_7.notes.Notes;
+import shm.dim.lab_7.note.Note;
 
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 public class FileHelper {
@@ -44,7 +40,7 @@ public class FileHelper {
     }
 
     // Запись в файл заметки
-    public static void write(Notes notes, File file) {
+    public static void write(ArrayList<Note> notes, File file) {
         try (FileOutputStream fos = new  FileOutputStream(file, true)) {
             Gson gson = new Gson();
             String json = gson.toJson(notes);
@@ -53,5 +49,20 @@ public class FileHelper {
         catch (IOException e) {
             Log.d("Log_07", e.getMessage());
         }
+    }
+
+    // Считать заметки из файла
+    public static ArrayList<Note> read(File file) {
+        ArrayList<Note> notes = null;
+        try (FileInputStream fis = new FileInputStream(file)) {
+            byte[] bytes = new byte[fis.available()];
+            fis.read(bytes);
+            String json = new String (bytes);
+            notes = new Gson().fromJson(json, new TypeToken<ArrayList<Note>>() {}.getType());
+        }
+        catch (IOException e) {
+            Log.d("Log_07", e.getMessage());
+        }
+        return notes;
     }
 }

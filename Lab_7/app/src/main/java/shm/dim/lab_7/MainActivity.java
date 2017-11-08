@@ -12,12 +12,12 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 
-import shm.dim.lab_7.file_helper.FileHelper;
-import shm.dim.lab_7.notes.Note;
 import shm.dim.lab_7.date.SelectedDate;
-import shm.dim.lab_7.notes.Notes;
+import shm.dim.lab_7.file_helper.FileHelper;
+import shm.dim.lab_7.note.Note;
 
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SelectedDate selectedDate;
 
-    private Notes notes = new Notes();
+    private ArrayList<Note> notes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +44,16 @@ public class MainActivity extends AppCompatActivity {
 
         setCurrentDate();
 
+        if((notes = FileHelper.read(file)) == null)
+            notes = new ArrayList<Note>();
+
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView calendar, int year, int month, int day) {
                 setSelectedDate(year, month, day);
                 setDisplayFormatButtons(false);
                 Note note;
-                if((note = notes.findByDate(selectedDate)) != null) {
+                if((note = findByDate(selectedDate)) != null) {
                     setDisplayFormatButtons(true);
                     etNote.setText(note.getText());
                 }
@@ -84,6 +87,14 @@ public class MainActivity extends AppCompatActivity {
     // Установить выбранную дату
     private void setSelectedDate(int year, int month, int day) {
         selectedDate = new SelectedDate(year, month, day);
+    }
+
+    // Найти заметку по дате
+    public Note findByDate(SelectedDate selectedDate) {
+        for (Note n : notes)
+            if (n.getDate().equals(selectedDate.toString()))
+                return n;
+        return null;
     }
 
     // Создание и отображение сообщения в диалоге
@@ -124,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onClick_Change(View v) {
         Note note;
-        if((note = notes.findByDate(selectedDate)) != null) {
+        if((note = findByDate(selectedDate)) != null) {
             notes.remove(note);
             notes.add(new Note(etNote.getText().toString(), selectedDate.toString()));
         }
@@ -133,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onClick_Remove(View v) {
         Note note;
-        if((note = notes.findByDate(selectedDate)) != null)
+        if((note = findByDate(selectedDate)) != null)
             notes.remove(note);
         FileHelper.write(notes, file);
         setDisplayFormatButtons(false);

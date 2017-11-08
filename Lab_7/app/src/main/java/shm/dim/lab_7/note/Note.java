@@ -1,4 +1,4 @@
-package shm.dim.lab_7.notes;
+package shm.dim.lab_7.note;
 
 public class Note {
 
