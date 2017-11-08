@@ -1,6 +1,7 @@
 package shm.dim.lab_7.date;
 
 public class SelectedDate {
+
     private int year, month, day;
 
     public SelectedDate() {

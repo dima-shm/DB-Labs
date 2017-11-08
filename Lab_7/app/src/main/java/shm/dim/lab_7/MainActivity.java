@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         initViews();
 
         file = new File(this.getFilesDir(), "Note.json");
-        file.delete();
         checkFile();
 
         setCurrentDate();
@@ -103,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     // Установить формат отображения кнопок
     private void setDisplayFormatButtons(boolean b) {
         etNote.setText("");
-        if (b) {
+        if(b) {
             buttonAdd.setVisibility(View.GONE);
             buttonChange.setVisibility(View.VISIBLE);
             buttonRemove.setVisibility(View.VISIBLE);
