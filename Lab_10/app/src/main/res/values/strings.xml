@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Lab_10</string>
+    <string name="add_group">Добавить группу</string>
+    <string name="add_student">Добавить студента</string>
+    <string name="table_groups">Table Groups</string>
+    <string name="table_students">Table Students</string>
+</resources>

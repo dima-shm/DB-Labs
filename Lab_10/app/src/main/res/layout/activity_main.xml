@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="shm.dim.lab_10.MainActivity"
+    android:orientation="vertical" >
+
+    <include layout="@layout/toolbar" />
+
+    <TextView
+        style="@style/textView"
+        android:text="@string/table_groups" />
+    <GridView
+        android:id="@+id/gridViewGroups"
+        style="@style/gridView"
+        android:numColumns="5" >
+    </GridView>
+
+    <TextView
+        style="@style/textView"
+        android:text="@string/table_students" />
+    <GridView
+        android:id="@+id/gridViewStudents"
+        style="@style/gridView"
+        android:numColumns="3" >
+    </GridView>
+
+</LinearLayout >
