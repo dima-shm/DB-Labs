@@ -1,6 +1,7 @@
 package shm.dim.lab_10;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -10,7 +11,6 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new DbHelper(this);
         database = dbHelper.getWritableDatabase();
 
-        mGroups = (GridView) findViewById(R.id.gridViewGroups);
-        mStudents = (GridView) findViewById(R.id.gridViewStudents);
+        mGroups = (GridView) findViewById(R.id.gv_groups);
+        mStudents = (GridView) findViewById(R.id.gv_students);
 
         toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
@@ -66,17 +66,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        insertIntoGroups(7, "ИТ", 3, "ПОИБМС", "Корсун Максим");
-        insertIntoGroups(2, "ПИМ", 2, "ИД", "Петров Петр");
-
         ArrayAdapter<String> groupsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
                 getTitleForGroupsTable());
         groupsAdapter.addAll(getAllFromGroupsTable());
         mGroups.setAdapter(groupsAdapter);
-
-        insertIntoStudents(7, 2122, "Прохоров Иван");
-        insertIntoStudents(7, 2123, "Трофимова Катя");
-        insertIntoStudents(7, 2124, "Игнатенко Виктор");
 
         ArrayAdapter<String> studentsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
                 getTitleForStudentsTable());
@@ -88,24 +81,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         dbHelper.close();
-    }
-
-    protected void insertIntoGroups(Integer id, String faculty, int course, String name, String head) {
-        ContentValues newValues = new ContentValues();
-        newValues.put(DbSchema.GroupsTable.Columns.ID_GROUP, id);
-        newValues.put(DbSchema.GroupsTable.Columns.FACULTY, faculty);
-        newValues.put(DbSchema.GroupsTable.Columns.COURSE, course);
-        newValues.put(DbSchema.GroupsTable.Columns.NAME, name);
-        newValues.put(DbSchema.GroupsTable.Columns.HEAD, head);
-        database.insert(DbSchema.GroupsTable.TABLE_NAME, null, newValues);
-    }
-
-    protected void insertIntoStudents(Integer idGroup, int idStudent, String name) {
-        ContentValues newValues = new ContentValues();
-        newValues.put(DbSchema.StudentsTable.Columns.ID_GROUP, idGroup);
-        newValues.put(DbSchema.StudentsTable.Columns.ID_STUDENT, idStudent);
-        newValues.put(DbSchema.StudentsTable.Columns.NAME, name);
-        database.insert(DbSchema.StudentsTable.TABLE_NAME, null, newValues);
     }
 
     protected ArrayList<String> getTitleForGroupsTable() {
@@ -165,10 +140,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void addGroup() {
-        Toast.makeText(this, "Добавить группу", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, AddGroupActivity.class);
+        startActivity(intent);
     }
 
     protected void addStudent() {
-        Toast.makeText(this, "Добавить группу", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, AddStudentActivity.class);
+        startActivity(intent);
     }
 }

@@ -13,7 +13,7 @@
         style="@style/textView"
         android:text="@string/table_groups" />
     <GridView
-        android:id="@+id/gridViewGroups"
+        android:id="@+id/gv_groups"
         style="@style/gridView"
         android:numColumns="5" >
     </GridView>
@@ -22,7 +22,7 @@
         style="@style/textView"
         android:text="@string/table_students" />
     <GridView
-        android:id="@+id/gridViewStudents"
+        android:id="@+id/gv_students"
         style="@style/gridView"
         android:numColumns="3" >
     </GridView>

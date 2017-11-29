@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="shm.dim.lab_10.AddStudentActivity"
+    android:orientation="vertical" >
+
+
+    <EditText
+        android:id="@+id/id_group"
+        style="@style/editText"
+        android:inputType="number"
+        android:hint="@string/id_group" />
+
+    <EditText
+        android:id="@+id/id_student"
+        style="@style/editText"
+        android:inputType="number"
+        android:hint="@string/id_student" />
+
+    <EditText
+        android:id="@+id/name_student"
+        style="@style/editText"
+        android:inputType="textPersonName"
+        android:hint="@string/name_student" />
+
+    <Button
+        style="@style/button"
+        android:text="@string/add"
+        android:onClick="onClickAdd"/>
+
+</LinearLayout>

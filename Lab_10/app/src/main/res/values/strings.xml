@@ -4,4 +4,12 @@
     <string name="add_student">Добавить студента</string>
     <string name="table_groups">Table Groups</string>
     <string name="table_students">Table Students</string>
+    <string name="id_group">Идентификатор группы</string>
+    <string name="faculty">Факультет</string>
+    <string name="course">Курс</string>
+    <string name="name_group">Наименование группы</string>
+    <string name="head_group">Староста группы</string>
+    <string name="id_student">Идентификатор студента</string>
+    <string name="name_student">Имя студента </string>
+    <string name="add">Добавить</string>
 </resources>
