@@ -1,6 +1,5 @@
-package shm.dim.lab_10;
+package shm.dim.lab_10.activitys;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import shm.dim.lab_10.R;
 import shm.dim.lab_10.database.DbHelper;
 import shm.dim.lab_10.database.DbSchema;
 
@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private DbHelper dbHelper;
     private SQLiteDatabase database;
     private GridView mGroups, mStudents;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -42,10 +43,20 @@ public class MainActivity extends AppCompatActivity {
             case R.id.add_student:
                 addStudent();
                 return true;
+            case R.id.select_head:
+                selectHead();
+                return true;
+            case R.id.delete_group:
+                deleteGroup();
+                return true;
+            case R.id.delete_student:
+                deleteStudent();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,19 +94,13 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.close();
     }
 
+
     protected ArrayList<String> getTitleForGroupsTable() {
         ArrayList<String> data = new ArrayList<>(Arrays.asList(DbSchema.GroupsTable.Columns.ID_GROUP,
                 DbSchema.GroupsTable.Columns.FACULTY,
                 DbSchema.GroupsTable.Columns.COURSE,
                 DbSchema.GroupsTable.Columns.NAME,
                 DbSchema.GroupsTable.Columns.HEAD));
-        return data;
-    }
-
-    protected ArrayList<String> getTitleForStudentsTable() {
-        ArrayList<String> data = new ArrayList<>(Arrays.asList(DbSchema.StudentsTable.Columns.ID_GROUP,
-                DbSchema.StudentsTable.Columns.ID_STUDENT,
-                DbSchema.StudentsTable.Columns.NAME));
         return data;
     }
 
@@ -121,6 +126,13 @@ public class MainActivity extends AppCompatActivity {
         return data;
     }
 
+    protected ArrayList<String> getTitleForStudentsTable() {
+        ArrayList<String> data = new ArrayList<>(Arrays.asList(DbSchema.StudentsTable.Columns.ID_GROUP,
+                DbSchema.StudentsTable.Columns.ID_STUDENT,
+                DbSchema.StudentsTable.Columns.NAME));
+        return data;
+    }
+
     protected ArrayList<String> getAllFromStudentsTable() {
         ArrayList<String> data = new ArrayList<>();
 
@@ -139,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
         return data;
     }
 
+
     protected void addGroup() {
         Intent intent = new Intent(this, AddGroupActivity.class);
         startActivity(intent);
@@ -146,6 +159,21 @@ public class MainActivity extends AppCompatActivity {
 
     protected void addStudent() {
         Intent intent = new Intent(this, AddStudentActivity.class);
+        startActivity(intent);
+    }
+
+    protected void selectHead() {
+        Intent intent = new Intent(this, SelectHeadActivity.class);
+        startActivity(intent);
+    }
+
+    protected void deleteGroup() {
+        Intent intent = new Intent(this, DeleteGroupActivity.class);
+        startActivity(intent);
+    }
+
+    protected void deleteStudent() {
+        Intent intent = new Intent(this, DeleteStudentActivity.class);
         startActivity(intent);
     }
 }

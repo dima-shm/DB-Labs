@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="shm.dim.lab_10.AddGroupActivity"
+    tools:context="shm.dim.lab_10.activitys.AddGroupActivity"
     android:orientation="vertical" >
 
     <EditText
@@ -30,11 +30,6 @@
         style="@style/editText"
         android:inputType="textPersonName"
         android:hint="@string/name_group" />
-
-    <Spinner
-        style="@style/spinner"
-        android:id="@+id/head_group"
-        android:hint="@string/head_group" />
 
     <Button
         style="@style/button"

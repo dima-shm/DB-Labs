@@ -9,15 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activitys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddGroupActivity" />
-        <activity android:name=".AddStudentActivity"></activity>
+        <activity android:name=".activitys.AddGroupActivity" />
+        <activity android:name=".activitys.AddStudentActivity" />
+        <activity android:name=".activitys.DeleteGroupActivity" />
+        <activity android:name=".activitys.DeleteStudentActivity" />
+        <activity android:name=".activitys.SelectHeadActivity"></activity>
     </application>
 
 </manifest>

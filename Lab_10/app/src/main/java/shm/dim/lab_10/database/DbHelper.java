@@ -22,7 +22,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 + GroupsTable.Columns.FACULTY + " TEXT NOT NULL, "
                 + GroupsTable.Columns.COURSE + " INTEGER NOT NULL CHECK (" + GroupsTable.Columns.COURSE + " > 0 AND " + GroupsTable.Columns.COURSE + " < 7), "
                 + GroupsTable.Columns.NAME + " TEXT NOT NULL, "
-                + GroupsTable.Columns.HEAD + " INTEGER NOT NULL UNIQUE);");
+                + GroupsTable.Columns.HEAD + " TEXT NOT NULL);");
 
         database.execSQL("CREATE TABLE IF NOT EXISTS " + StudentsTable.TABLE_NAME + " ( "
                 + StudentsTable.Columns.ID_GROUP + " INTEGER NOT NULL, "

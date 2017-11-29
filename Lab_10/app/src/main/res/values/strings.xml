@@ -2,6 +2,9 @@
     <string name="app_name">Lab_10</string>
     <string name="add_group">Добавить группу</string>
     <string name="add_student">Добавить студента</string>
+    <string name="select_head">Назначить старосту</string>
+    <string name="delete_group">Удалить группу</string>
+    <string name="delete_student">Удалить студента</string>
     <string name="table_groups">Table Groups</string>
     <string name="table_students">Table Students</string>
     <string name="id_group">Идентификатор группы</string>
@@ -10,6 +13,10 @@
     <string name="name_group">Наименование группы</string>
     <string name="head_group">Староста группы</string>
     <string name="id_student">Идентификатор студента</string>
-    <string name="name_student">Имя студента </string>
+    <string name="name_student">Имя студента</string>
     <string name="add">Добавить</string>
+    <string name="delete">Удалить</string>
+    <string name="change_id_group">Выберите идентификатор группы:</string>
+    <string name="change_id_student">Выберите идентификатор студента:</string>
+    <string name="change_head">Выберите старосту:</string>
 </resources>

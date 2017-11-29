@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="shm.dim.lab_10.activitys.DeleteGroupActivity"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/textView"
+        android:text="@string/change_id_group"/>
+
+    <Spinner
+        style="@style/spinner"
+        android:id="@+id/id_group" />
+
+    <Button
+        style="@style/button"
+        android:text="@string/delete"
+        android:onClick="onClickDelete"/>
+
+</LinearLayout>

@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="shm.dim.lab_10.AddStudentActivity"
+    tools:context="shm.dim.lab_10.activitys.AddStudentActivity"
     android:orientation="vertical" >
 
 
-    <EditText
+    <TextView
+        style="@style/textView"
+        android:text="@string/change_id_group"/>
+
+    <Spinner
         android:id="@+id/id_group"
-        style="@style/editText"
-        android:inputType="number"
-        android:hint="@string/id_group" />
+        style="@style/spinner" />
 
     <EditText
         android:id="@+id/id_student"
