@@ -35,6 +35,11 @@ public class AddGroupActivity extends AppCompatActivity {
 
         initViews();
     }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        dbHelper.close();
+    }
 
 
     void initViews() {
@@ -67,7 +72,7 @@ public class AddGroupActivity extends AppCompatActivity {
                    mFaculty.getText().toString(),
                    new Integer(mCourse.getText().toString()),
                    mNameGroup.getText().toString(),
-                   "null");
+                   "");
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }

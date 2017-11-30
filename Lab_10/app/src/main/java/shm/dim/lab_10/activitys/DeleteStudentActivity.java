@@ -33,6 +33,12 @@ public class DeleteStudentActivity extends AppCompatActivity {
         initViews();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        dbHelper.close();
+    }
+
 
     void initViews() {
         mIdStudent = (Spinner)findViewById(R.id.id_student);

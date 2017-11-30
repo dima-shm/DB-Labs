@@ -37,6 +37,12 @@ public class AddStudentActivity extends AppCompatActivity {
         initViews();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        dbHelper.close();
+    }
+
 
     void initViews() {
         mIdGroup = (Spinner)findViewById(R.id.id_group);
