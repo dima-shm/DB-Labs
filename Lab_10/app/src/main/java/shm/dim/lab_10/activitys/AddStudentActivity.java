@@ -39,8 +39,8 @@ public class AddStudentActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        super.onStop();
         dbHelper.close();
+        super.onStop();
     }
 
 

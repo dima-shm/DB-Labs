@@ -71,11 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
         ArrayAdapter<String> groupsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
                 getTitleForGroupsTable());
@@ -90,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        super.onStop();
         dbHelper.close();
+        super.onStop();
     }
 
 
