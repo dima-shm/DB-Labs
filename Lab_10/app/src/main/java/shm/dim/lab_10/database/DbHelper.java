@@ -16,6 +16,11 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     @Override
+    public void onConfigure(SQLiteDatabase db) {
+        db.setForeignKeyConstraintsEnabled(true);
+    }
+
+    @Override
     public void onCreate(SQLiteDatabase database) {
         database.execSQL("CREATE TABLE IF NOT EXISTS " + GroupsTable.TABLE_NAME + " ( "
                 + GroupsTable.Columns.ID_GROUP + " INTEGER PRIMARY KEY AUTOINCREMENT, "
