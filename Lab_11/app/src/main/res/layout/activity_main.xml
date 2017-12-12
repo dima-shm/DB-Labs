@@ -1,18 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="shm.dim.lab_11.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/text_view"
+                android:textAlignment="center"
+                android:text="@string/enter_period" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/EditText_with"
+                        style="@style/edit_text"
+                        android:inputType="date"
+                        android:hint="@string/yyyy_mm_dd"/>
+
+                    <EditText
+                        android:id="@+id/EditText_on"
+                        style="@style/edit_text"
+                        android:inputType="date"
+                        android:hint="@string/yyyy_mm_dd"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/button_best_students"
+                style="@style/button"
+                android:text="@string/list_best_students_for_period" />
+            <Button
+                android:id="@+id/button_students_with_mark_below_4"
+                style="@style/button"
+                android:text="@string/list_students_receiving_assessment_below_4_for_period" />
+            <Button
+                android:id="@+id/button_comparative_analysis_for_groups"
+                style="@style/button"
+                android:text="@string/comparative_analysis_for_groups_during_the_period" />
+            <Button
+                android:id="@+id/button_comparison_on_faculty"
+                style="@style/button"
+                android:text="@string/comparison_on_faculty_during_the_period" />
+
+
+            <EditText
+                android:id="@+id/studentName"
+                style="@style/button"
+                android:inputType="textPersonName"
+                android:text="Name1" />
+
+            <Button
+                android:id="@+id/button10"
+                style="@style/button"
+                android:text="Select avg by subject for every student" />
+
+            <Button
+                android:id="@+id/button8"
+                style="@style/button"
+                android:text="Select by specific student" />
+
+            <EditText
+                android:id="@+id/groupID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number"
+                android:text="1" />
+
+            <Button
+                android:id="@+id/button9"
+                style="@style/button"
+                android:text="Select by specific group" />
+
+            <GridView
+                android:id="@+id/GridView_result"
+                android:layout_height="2000dp"
+                android:layout_width="match_parent">
+            </GridView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
