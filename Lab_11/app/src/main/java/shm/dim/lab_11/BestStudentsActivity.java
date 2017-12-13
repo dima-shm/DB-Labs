@@ -25,6 +25,7 @@ public class BestStudentsActivity extends AppCompatActivity implements View.OnCl
     private Spinner mFaculty;
     private GridView mResult;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="shm.dim.lab_11.BadStudentsActivity">
+    tools:context="shm.dim.lab_11.FacultyComparisonActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         <TextView
             style="@style/text_view"
             android:textAlignment="center"
-            android:text="@string/task_2"
+            android:text="@string/task_4"
             android:layout_marginBottom="20dp"/>
 
         <TextView
@@ -43,24 +43,6 @@
                     style="@style/edit_text"
                     android:inputType="date"
                     android:hint="@string/yyyy_mm_dd" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true" >
-
-                <Spinner
-                    android:id="@+id/faculty"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 

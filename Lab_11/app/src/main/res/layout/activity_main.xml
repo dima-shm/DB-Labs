@@ -12,61 +12,33 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button_best_students"
+                android:id="@+id/task_1"
                 style="@style/button"
-                android:text="@string/list_best_students_for_period_on_faculty" />
-            <Button
-                android:id="@+id/button_students_with_mark_below_4"
-                style="@style/button"
-                android:text="@string/list_students_receiving_assessment_below_4_for_period_on_faculty" />
-            <Button
-                android:id="@+id/button_comparative_analysis_for_groups"
-                style="@style/button"
-                android:text="@string/comparative_analysis_for_groups_during_the_period" />
-            <Button
-                android:id="@+id/button_comparison_on_faculty"
-                style="@style/button"
-                android:text="@string/comparison_on_faculty_during_the_period" />
-
-
-            <EditText
-                android:id="@+id/studentName"
-                style="@style/button"
-                android:inputType="textPersonName"
-                android:text="Name1" />
+                android:text="@string/task_1" />
 
             <Button
-                android:id="@+id/button10"
+                android:id="@+id/task_2"
                 style="@style/button"
-                android:text="Select avg by subject for every student" />
+                android:text="@string/task_2" />
 
             <Button
-                android:id="@+id/button8"
+                android:id="@+id/task_3"
                 style="@style/button"
-                android:text="Select by specific student" />
-
-            <EditText
-                android:id="@+id/groupID"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number"
-                android:text="1" />
+                android:text="@string/task_3" />
 
             <Button
-                android:id="@+id/button9"
+                android:id="@+id/task_4"
                 style="@style/button"
-                android:text="Select by specific group" />
+                android:text="@string/task_4" />
 
-            <GridView
-                android:id="@+id/GridView_result"
-                android:layout_height="2000dp"
-                android:layout_width="match_parent">
-            </GridView>
+            <Button
+                android:id="@+id/task_5"
+                style="@style/button"
+                android:text="@string/task_5" />
 
         </LinearLayout>
 

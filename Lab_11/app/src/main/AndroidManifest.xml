@@ -17,7 +17,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".BestStudentsActivity" />
-        <activity android:name=".BadStudentsActivity"></activity>
+        <activity android:name=".BadStudentsActivity" />
+        <activity android:name=".GroupComparisonActivity" />
+        <activity android:name=".FacultyComparisonActivity" />
+        <activity android:name=".GroupComparison2Activity" />
     </application>
 
 </manifest>

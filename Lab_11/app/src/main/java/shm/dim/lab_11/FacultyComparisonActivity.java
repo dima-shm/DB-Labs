@@ -16,52 +16,30 @@ import java.util.ArrayList;
 
 import shm.dim.lab_11.database.DbHelper;
 
-public class BadStudentsActivity extends AppCompatActivity implements View.OnClickListener {
+public class FacultyComparisonActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DbHelper dbHelper;
     private SQLiteDatabase db;
     private EditText mDateWith, mDateOn;
     private String dateWith, dateOn;
-    private Spinner mFaculty;
     private GridView mResult;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bad_students);
+        setContentView(R.layout.activity_faculty_comparison);
 
         dbHelper = new DbHelper(this);
         db = dbHelper.getWritableDatabase();
 
         mDateWith = findViewById(R.id.date_with);
         mDateOn = findViewById(R.id.date_on);
-        mFaculty = findViewById(R.id.faculty);
         mResult =  findViewById(R.id.result);
 
         findViewById(R.id.button_select).setOnClickListener(this);
-
-        initSpiner();
     }
 
-
-    protected void initSpiner() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getFacultys());
-        mFaculty.setAdapter(adapter);
-    }
-
-    protected ArrayList<String> getFacultys() {
-        ArrayList<String> data = new ArrayList<>();
-        String query = "select FACULTY.FACULTY as faculty from FACULTY";
-        Cursor cursor = db.rawQuery(query, null);
-        if (cursor.moveToFirst()) {
-            int facultyIndex = cursor.getColumnIndex("faculty");
-            do {
-                data.add(cursor.getString(facultyIndex));
-            } while (cursor.moveToNext());
-        }
-        return data;
-    }
 
     protected boolean formatDateIsCorrect(String date) {
         String DATE_FORMAT = "yyyy-MM-dd";
@@ -88,39 +66,32 @@ public class BadStudentsActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    protected void selectStudentsWhereMarkLessThenFourOnFaculty() {
+    protected void selectAvgMarkByFaculty() {
         if(getPeriod()) {
-            mResult.setNumColumns(4);
+            mResult.setNumColumns(2);
             mResult.setAdapter(null);
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
             adapter.add("FACULTY");
-            adapter.add("GROUP");
-            adapter.add("NAME");
-            adapter.add("MARK");
+            adapter.add("AVG_MARK");
 
-            String query = "select GROUP_.FACULTY, GROUP_.NAME as groupName, STUDENT.NAME as strudentName, PROGRESS.MARK from STUDENT, PROGRESS, GROUP_ "
-                    + "where STUDENT.IDSTUDENT = PROGRESS.IDSTUDENT "
-                    + "and STUDENT.IDGROUP = GROUP_.IDGROUP "
-                    + "and GROUP_.FACULTY = '" + mFaculty.getSelectedItem().toString() + "' "
-                    + "and EXAMDATE BETWEEN '" + dateWith + "' and '" + dateOn + "' "
-                    + "and MARK < 4";
-            Cursor cursor = db.rawQuery(query, null);
+            String query = "select FACULTY, round(avg(MARK), 1) avg_mark from FACULTY, PROGRESS "
+                    + "where EXAMDATE BETWEEN '" + dateWith + "' and '" + dateOn + "' "
+                    + "group by FACULTY "
+                    + "order by avg_mark asc";
+            Cursor c = db.rawQuery(query, null);
 
-            if (cursor.moveToFirst()) {
-                int facultyIndex = cursor.getColumnIndex("FACULTY");
-                int groupNameIndex = cursor.getColumnIndex("groupName");
-                int strudentNameIndex = cursor.getColumnIndex("strudentName");
-                int markIndex = cursor.getColumnIndex("MARK");
+
+            if (c.moveToFirst()) {
+                int facultyIndex = c.getColumnIndex("FACULTY");
+                int avgMarkIndex = c.getColumnIndex("avg_mark");
                 do {
-                    adapter.add(cursor.getString(facultyIndex));
-                    adapter.add(cursor.getString(groupNameIndex));
-                    adapter.add(cursor.getString(strudentNameIndex));
-                    adapter.add(cursor.getString(markIndex));
-                } while (cursor.moveToNext());
+                    adapter.add(c.getString(facultyIndex));
+                    adapter.add(c.getString(avgMarkIndex));
+                } while (c.moveToNext());
             }
             mResult.setAdapter(adapter);
-            cursor.close();
+            c.close();
         }
     }
 
@@ -129,7 +100,7 @@ public class BadStudentsActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_select:
-                selectStudentsWhereMarkLessThenFourOnFaculty();
+                selectAvgMarkByFaculty();
                 break;
         }
     }

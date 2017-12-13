@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="shm.dim.lab_11.BadStudentsActivity">
+    tools:context="shm.dim.lab_11.GroupComparison2Activity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         <TextView
             style="@style/text_view"
             android:textAlignment="center"
-            android:text="@string/task_2"
+            android:text="@string/task_5"
             android:layout_marginBottom="20dp"/>
 
         <TextView
@@ -52,19 +52,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <RadioGroup
+                android:id="@+id/radio_group"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true" >
+                android:layout_width="wrap_content"
+                android:orientation="vertical" >
 
-                <Spinner
-                    android:id="@+id/faculty"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                <RadioButton
+                    android:id="@+id/radio_button1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Группы со средней оценкой для каждого студента по предмету" />
 
-            </LinearLayout>
+                <RadioButton
+                    android:id="@+id/radio_button2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Группы со средней оценкой для студента в целом" />
+
+                <RadioButton
+                    android:id="@+id/radio_button3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Группы со средней оценкой для группы в целом" />
+
+            </RadioGroup>
 
         </RelativeLayout>
+
+        <Spinner
+            android:id="@+id/student_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <Spinner
+            android:id="@+id/groups_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/button_select"
