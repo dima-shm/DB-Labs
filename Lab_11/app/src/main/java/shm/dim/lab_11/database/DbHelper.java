@@ -1,4 +1,4 @@
-package shm.dim.lab_11;
+package shm.dim.lab_11.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -124,5 +124,32 @@ public class DbHelper extends SQLiteOpenHelper {
         cv.put("TEACHER", teacher);
         db.insert("PROGRESS", null, cv);
         cv.clear();
+    }
+
+    public void initDatabase(SQLiteDatabase db) {
+        addFaculty(db, 1,"ФИТ", "Шиман","8:00 – 15:00");
+        addFaculty(db, 2,"ИЭФ", "Перов","8:00 – 15:00");
+        addGroup(db, 1,"ФИТ", 3, "ПОИБМС", "Иванов");
+        addGroup(db, 2,"ИЭФ", 3, "NET", "Смирнов");
+        addStudent(db, 1, 1, "Иванов", "1998-11-11","ул.Садовая 12");
+        addStudent(db, 2, 1, "Сидоров", "1998-02-12","просп.Рокосовского 14");
+        addStudent(db, 3, 1, "Петров", "1987-01-09","ул.Иванова 2");
+        addStudent(db, 4, 2, "Смирнов", "1991-11-10","ул.Горовца 11");
+        addStudent(db, 5, 2, "Азаренко", "1995-06-11","просп.Машерова 114а");
+        addStudent(db, 6, 2, "Брусевич", "1997-15-07","ул.Седых 9");
+        addSubject(db, 1, "ОАиП");
+        addSubject(db, 2, "Бизнес");
+        addProgress(db, 1,1,"2010-06-06", 6, "Преподаватель");
+        addProgress(db, 2,1,"2010-06-06", 4, "Преподаватель");
+        addProgress(db, 3,1,"2010-06-06", 7, "Преподаватель");
+        addProgress(db, 4,1,"2017-06-06", 2, "Преподаватель");
+        addProgress(db, 5,1,"2017-06-06", 2, "Преподаватель");
+        addProgress(db, 6,1,"2017-06-06", 6, "Преподаватель");
+        addProgress(db, 1,2,"2014-06-06", 5, "Преподаватель2");
+        addProgress(db, 2,2,"2014-06-06", 9, "Преподаватель2");
+        addProgress(db, 3,2,"2014-06-06", 3, "Преподаватель2");
+        addProgress(db, 4,2,"2016-06-06", 7, "Преподаватель2");
+        addProgress(db, 5,2,"2016-06-06", 4, "Преподаватель2");
+        addProgress(db, 6,2,"2016-06-06", 4, "Преподаватель2");
     }
 }

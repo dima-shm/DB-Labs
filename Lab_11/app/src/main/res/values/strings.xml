@@ -2,8 +2,13 @@
     <string name="app_name">Lab_11</string>
     <string name="yyyy_mm_dd">YYYY-MM-DD</string>
     <string name="enter_period">Введите период</string>
-    <string name="list_best_students_for_period">Список наилучших студентов за период</string>
-    <string name="list_students_receiving_assessment_below_4_for_period">Список студентов, получивших оценки ниже 4 за период</string>
-    <string name="comparative_analysis_for_groups_during_the_period">Сравнительный анализ по группам за период</string>
+    <string name="list_best_students_for_period_on_faculty">Список наилучших студентов за период на факультете</string>
+    <string name="list_students_receiving_assessment_below_4_for_period_on_faculty">Список студентов, получивших оценки ниже 4 за период на факультете</string>
+    <string name="comparative_analysis_for_groups_during_the_period">Сравнительный анализ по группам за период в целом</string>
+    <string name="comparative_analysis_for_groups_during_the_subject">Сравнительный анализ по группам за период по предмету</string>
     <string name="comparison_on_faculty_during_the_period">Сравнение по факультетам за период</string>
+    <string name="enter_faculty">Введите факультет</string>
+    <string name="select">Выбрать</string>
+    <string name="task_1">Список наилучших студентов для всех групп факультета за период</string>
+    <string name="task_2">Список студентов, получивших оценки ниже 4, для всех групп факультета за период</string>
 </resources>
