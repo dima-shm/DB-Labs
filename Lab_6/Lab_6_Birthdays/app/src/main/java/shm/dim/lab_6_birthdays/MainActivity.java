@@ -76,11 +76,11 @@ public class MainActivity extends AppCompatActivity {
             do{
                 str += "{" + raf.readLine();
                 JsonObject jsonObject = new JsonParser().parse(str).getAsJsonObject();
-                if(birthDate.equals(jsonObject.get("birthDate").getAsString())) {
+                if(birthDate.equals(jsonObject.get("birthday").getAsString())) {
                     person = new Person(jsonObject.get("secondName").getAsString(),
                             jsonObject.get("firstName").getAsString(),
                             jsonObject.get("phoneNumber").getAsString(),
-                            jsonObject.get("birthDate").getAsString());
+                            jsonObject.get("birthday").getAsString());
                     break;
                 }
                 str = new String();
