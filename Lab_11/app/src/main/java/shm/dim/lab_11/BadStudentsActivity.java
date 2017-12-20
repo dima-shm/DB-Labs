@@ -99,12 +99,11 @@ public class BadStudentsActivity extends AppCompatActivity implements View.OnCli
             adapter.add("NAME");
             adapter.add("MARK");
 
-            String query = "select GROUP_.FACULTY, GROUP_.NAME as groupName, STUDENT.NAME as strudentName, PROGRESS.MARK from STUDENT, PROGRESS, GROUP_ "
-                    + "where STUDENT.IDSTUDENT = PROGRESS.IDSTUDENT "
-                    + "and STUDENT.IDGROUP = GROUP_.IDGROUP "
-                    + "and GROUP_.FACULTY = '" + mFaculty.getSelectedItem().toString() + "' "
+            String query = "select FACULTY, groupName, strudentName, MARK from studentProgressGroup "
+                    + "where FACULTY = '" + mFaculty.getSelectedItem().toString() + "' "
                     + "and EXAMDATE BETWEEN '" + dateWith + "' and '" + dateOn + "' "
-                    + "and MARK < 4";
+                    + "and MARK < 4 "
+                    + "order by MARK desc";
             Cursor cursor = db.rawQuery(query, null);
 
             if (cursor.moveToFirst()) {

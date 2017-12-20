@@ -75,7 +75,7 @@ public class FacultyComparisonActivity extends AppCompatActivity implements View
             adapter.add("FACULTY");
             adapter.add("AVG_MARK");
 
-            String query = "select FACULTY, round(avg(MARK), 1) avg_mark from FACULTY, PROGRESS "
+            String query = "select FACULTY, round(avg(MARK), 1) avg_mark from studentProgressGroup "
                     + "where EXAMDATE BETWEEN '" + dateWith + "' and '" + dateOn + "' "
                     + "group by FACULTY "
                     + "order by avg_mark asc";

@@ -115,19 +115,19 @@ public class GroupComparison2Activity extends AppCompatActivity  implements View
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
             adapter.add("IDGROUP");
-            adapter.add("ID_SUBJECT");
+            adapter.add("SUBJECT");
             adapter.add("NAME");
             adapter.add("AVG_MARK");
 
-            String query = "select IDGROUP, IDSUBJECT, NAME, round(avg(MARK), 1) avg_mark  from PROGRESS, STUDENT "
+            String query = "select IDGROUP, SUBJECT, NAME, round(avg(MARK), 1) avg_mark from subjectProgress "
                     + "where EXAMDATE BETWEEN '" + dateWith + "' and '" + dateOn + "' "
-                    + "group by IDSUBJECT, NAME "
+                    + "group by SUBJECT, NAME "
                     + "order by IDGROUP asc";
             Cursor cursor = db.rawQuery(query, null);
 
             if (cursor.moveToFirst()) {
                 int idGroupIndex = cursor.getColumnIndex("IDGROUP");
-                int idSubjectIndex = cursor.getColumnIndex("IDSUBJECT");
+                int idSubjectIndex = cursor.getColumnIndex("SUBJECT");
                 int nameIndex = cursor.getColumnIndex("NAME");
                 int avgMarkIndex = cursor.getColumnIndex("avg_mark");
                 do {
@@ -149,18 +149,17 @@ public class GroupComparison2Activity extends AppCompatActivity  implements View
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
             adapter.add("NAME");
-            adapter.add("ID_SUBJECT");
+            adapter.add("SUBJECT");
             adapter.add("AVG_MARK");
 
-            String query = "select NAME, IDSUBJECT, round(avg(MARK), 1) avg_mark  from STUDENT, PROGRESS  "
-                    + "where STUDENT.IDSTUDENT = PROGRESS.IDSTUDENT "
-                    + "and EXAMDATE BETWEEN '" + dateWith + "' and '" + dateOn + "' and NAME = '" + mStuedentName.getSelectedItem().toString() + "' "
-                    + "group by IDSUBJECT";
+            String query = "select NAME, SUBJECT, round(avg(MARK), 1) avg_mark from subjectProgress "
+                    + "where EXAMDATE BETWEEN '" + dateWith + "' and '" + dateOn + "' and NAME = '" + mStuedentName.getSelectedItem().toString() + "' "
+                    + "group by SUBJECT";
             Cursor cursor = db.rawQuery(query, null);
 
             if (cursor.moveToFirst()) {
                 int nameIndex = cursor.getColumnIndex("NAME");
-                int idSubjectIndex = cursor.getColumnIndex("IDSUBJECT");
+                int idSubjectIndex = cursor.getColumnIndex("SUBJECT");
                 int avgMarkIndex = cursor.getColumnIndex("avg_mark");
                 do {
                     adapter.add(cursor.getString(nameIndex));
@@ -182,9 +181,8 @@ public class GroupComparison2Activity extends AppCompatActivity  implements View
             adapter.add("ID_GROUP");
             adapter.add("AVG_MARK");
 
-            String query = "select IDGROUP, round(avg(MARK), 1) avg_mark from STUDENT, PROGRESS "
-                    + "where STUDENT.IDSTUDENT = PROGRESS.IDSTUDENT "
-                    + "and EXAMDATE BETWEEN '" + dateWith + "' and '" + dateOn + "' and IDGROUP = '" + mGroupsId.getSelectedItem().toString() + "' "
+            String query = "select IDGROUP, round(avg(MARK), 1) avg_mark from subjectProgress "
+                    + "where EXAMDATE BETWEEN '" + dateWith + "' and '" + dateOn + "' and IDGROUP = '" + mGroupsId.getSelectedItem().toString() + "' "
                     + "group by IDGROUP";
             Cursor cursor = db.rawQuery(query, null);
 

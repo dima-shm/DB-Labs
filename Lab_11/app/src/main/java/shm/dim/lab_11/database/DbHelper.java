@@ -152,4 +152,18 @@ public class DbHelper extends SQLiteOpenHelper {
         addProgress(db, 5,2,"2016-06-06", 4, "Преподаватель2");
         addProgress(db, 6,2,"2016-06-06", 4, "Преподаватель2");
     }
+
+    public void createViews(SQLiteDatabase db) {
+        db.execSQL("drop view if exists studentProgressGroup; ");
+        db.execSQL("create view if not exists studentProgressGroup as " +
+                "select s.IDGROUP, g.FACULTY, g.NAME groupName, s.NAME strudentName, p.MARK, p.EXAMDATE from PROGRESS p, STUDENT s, GROUP_ g " +
+                "where s.IDSTUDENT =  p.IDSTUDENT and s.IDGROUP = g.IDGROUP; "
+        );
+
+        db.execSQL("drop view if exists subjectProgress; ");
+        db.execSQL("create view if not exists subjectProgress as " +
+                "select st.IDGROUP, s.SUBJECT, st.NAME, p.MARK, p.EXAMDATE from SUBJECT s, PROGRESS p, STUDENT st " +
+                "where s.IDSUBJECT =  p.IDSUBJECT and st.IDSTUDENT = p.IDSTUDENT; "
+        );
+    }
 }
