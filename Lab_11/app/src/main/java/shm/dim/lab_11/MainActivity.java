@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //db = dbHelper.getWritableDatabase();
         //dbHelper.createViews(db);
         //dbHelper.initDatabase(db);
+        //dbHelper.createIndex(db);
     }
 
 

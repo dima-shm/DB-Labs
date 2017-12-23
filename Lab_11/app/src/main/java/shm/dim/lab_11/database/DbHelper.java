@@ -166,4 +166,14 @@ public class DbHelper extends SQLiteOpenHelper {
                 "where s.IDSUBJECT =  p.IDSUBJECT and st.IDSTUDENT = p.IDSTUDENT; "
         );
     }
+
+    public void createIndex(SQLiteDatabase db) {
+        db.execSQL("create index if not exists idx_examdate " +
+                "on PROGRESS (EXAMDATE);"
+        );
+
+        db.execSQL("create index if not exists idx_mark  "+
+                "on PROGRESS (MARK);"
+        );
+    }
 }
