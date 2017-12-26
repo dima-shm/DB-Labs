@@ -28,7 +28,6 @@ public class DbHelper extends SQLiteOpenHelper {
                 + "DEAN            TEXT    NOT NULL, "
                 + "OFFICETIMETABLE TEXT    NOT NULL);"
         );
-
         db.execSQL("CREATE TABLE IF NOT EXISTS GROUP_ ("
                 + "IDGROUP INTEGER PRIMARY KEY, "
                 + "FACULTY TEXT    NOT NULL, "
@@ -174,6 +173,32 @@ public class DbHelper extends SQLiteOpenHelper {
 
         db.execSQL("create index if not exists idx_mark  "+
                 "on PROGRESS (MARK);"
+        );
+    }
+
+    public void createTriggers(SQLiteDatabase db) {
+        db.execSQL("create trigger tr_Insert_Student " +
+                "instead of insert on STUDENT " +
+                "when (select count(*) from STUDENT) > 6 " +
+                "begin " +
+                "select raise(abort, 'Операция INSERT запрещена');" +
+                "end;"
+        );
+
+        db.execSQL("create trigger tr_Delete_Student " +
+                "instead of delete on STUDENT " +
+                "when (select count(*) from STUDENT) < 3 " +
+                "begin " +
+                "select raise(abort, 'Операция DELETE запрещена');" +
+                "end;"
+        );
+
+        db.execSQL("create trigger tr_Update_Student " +
+                "instead of update on studentProgressGroup " +
+                "when (select count(*) from STUDENT) < 3 " +
+                "begin " +
+                "update STUDENT set NAME = new.NAME where IDSTUDENT = old.IDSTUDENT;" +
+                "end;"
         );
     }
 }
