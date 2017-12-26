@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Lab_16</string>
+    <string name="add">добавить</string>
+    <string name="delete">удалить</string>
+    <string name="name">Имя</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="update">Обновить</string>
+</resources>
