@@ -178,16 +178,16 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public void createTriggers(SQLiteDatabase db) {
         db.execSQL("create trigger tr_Insert_Student " +
-                "instead of insert on STUDENT " +
-                "when (select count(*) from STUDENT) > 6 " +
+                "before insert on STUDENT " +
+                "when (select count(STUDENT.IDSTUDENT) from STUDENT where IDGROUP = new.IDGROUP) > 6 " +
                 "begin " +
                 "select raise(abort, 'Операция INSERT запрещена');" +
                 "end;"
         );
 
         db.execSQL("create trigger tr_Delete_Student " +
-                "instead of delete on STUDENT " +
-                "when (select count(*) from STUDENT) < 3 " +
+                "before delete on STUDENT " +
+                "when (select count(STUDENT.IDSTUDENT) from STUDENT where IDGROUP = new.IDGROUP) < 3 " +
                 "begin " +
                 "select raise(abort, 'Операция DELETE запрещена');" +
                 "end;"
