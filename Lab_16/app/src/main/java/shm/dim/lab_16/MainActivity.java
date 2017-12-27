@@ -2,7 +2,6 @@ package shm.dim.lab_16;
 
 import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
-import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,25 +10,22 @@ import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private EditText mName, mPhone;
+    private ListView mListContact;
 
-
-    private ListAdapter listAdapter;
-    private ListView contactList;
     private ArrayList<Contact> contacts;
+    private ListAdapter listAdapter;
 
-    Button mDelete, mAdd, mUpdate;
-    EditText mName, mPhone;
+    private String selectedContactId = null;
 
-    String selected_contact_ID = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,119 +33,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         contacts = new ArrayList<>();
-        contactList = findViewById(R.id.list);
-
-        mAdd =  findViewById(R.id.button_add);
-        mDelete = findViewById(R.id.button_delete);
-        mUpdate = findViewById(R.id.button_update);
-
-        loadContacts();
-
-        contactList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Object  selected = contactList.getItemAtPosition(position);
-                Contact cont;
-                cont = (Contact) selected;
-                selected_contact_ID = cont.getID();
-            }
-        });
-
+        mListContact = findViewById(R.id.list);
 
         mName = findViewById(R.id.name);
         mPhone = findViewById(R.id.phone);
+        findViewById(R.id.button_add).setOnClickListener(this);
+        findViewById(R.id.button_delete).setOnClickListener(this);
 
+        loadContacts();
 
-        mAdd.setOnClickListener(new View.OnClickListener() {
+        mListContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                String phone, name;
-                phone = mPhone.getText().toString();
-                name = mName.getText().toString();
-                ArrayList <ContentProviderOperation> ops = new ArrayList<>();
-
-                ops.add(ContentProviderOperation.newInsert(
-                        ContactsContract.RawContacts.CONTENT_URI)
-                        .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
-                        .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
-                        .build());
-
-                //Names
-                if (name != null) {
-                    ops.add(ContentProviderOperation.newInsert(
-                            ContactsContract.Data.CONTENT_URI)
-                            .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                            .withValue(ContactsContract.Data.MIMETYPE,
-                                    ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
-                            .withValue(
-                                    ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
-                                    name).build());
-                }
-
-                //Mobile Number
-                if (phone != null) {
-                    ops.add(ContentProviderOperation.
-                            newInsert(ContactsContract.Data.CONTENT_URI)
-                            .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                            .withValue(ContactsContract.Data.MIMETYPE,
-                                    ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
-                            .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, phone)
-                            .withValue(ContactsContract.CommonDataKinds.Phone.TYPE,
-                                    ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE)
-                            .build());
-                }
-
-                try {
-                    getContentResolver().applyBatch(ContactsContract.AUTHORITY, ops);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(MainActivity.this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
-        mDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(selected_contact_ID != null) {
-                    final ArrayList ops = new ArrayList();
-                    final ContentResolver cr = getContentResolver();
-                    ops.add(ContentProviderOperation
-                            .newDelete(ContactsContract.RawContacts.CONTENT_URI)
-                            .withSelection(
-                                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID
-                                            + " = ?",
-                                    new String[]{selected_contact_ID})
-                            .build());
-
-                    try {
-                        cr.applyBatch(ContactsContract.AUTHORITY, ops);
-                        ops.clear();
-                    } catch (OperationApplicationException e) {
-                        e.printStackTrace();
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else{
-                    Toast.makeText(MainActivity.this, "Выберите контакт", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-
-        mUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,MainActivity.class);
-                finish();
-                startActivity(intent);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Object selected = mListContact.getItemAtPosition(position);
+                Contact contact = (Contact) selected;
+                selectedContactId = contact.getID();
             }
         });
     }
 
-    public void loadContacts() {
+
+    protected void loadContacts() {
         String phoneNumber, phoneID;
 
         ContentResolver contentResolver = getContentResolver();
@@ -184,6 +88,89 @@ public class MainActivity extends AppCompatActivity {
         }
 
         listAdapter = new ListAdapter(MainActivity.this, R.layout.item, contacts);
-        contactList.setAdapter(listAdapter);
+        mListContact.setAdapter(listAdapter);
+    }
+
+    protected void add() {
+        String phone = mPhone.getText().toString();
+        String name = mName.getText().toString();
+        ArrayList <ContentProviderOperation> ops = new ArrayList<>();
+
+        ops.add(ContentProviderOperation
+                .newInsert(ContactsContract.RawContacts.CONTENT_URI)
+                .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
+                .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
+                .build());
+
+        if (name != null) {
+            ops.add(ContentProviderOperation
+                    .newInsert(ContactsContract.Data.CONTENT_URI)
+                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                    .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                    .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, name)
+                    .build());
+        }
+
+        if (phone != null) {
+            ops.add(ContentProviderOperation.
+                    newInsert(ContactsContract.Data.CONTENT_URI)
+                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                    .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                    .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, phone)
+                    .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE)
+                    .build());
+        }
+
+        try {
+            getContentResolver().applyBatch(ContactsContract.AUTHORITY, ops);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(MainActivity.this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        updateListContacts();
+    }
+
+    protected void delete() {
+        if(selectedContactId != null) {
+            final ArrayList ops = new ArrayList();
+            final ContentResolver cr = getContentResolver();
+            ops.add(ContentProviderOperation
+                    .newDelete(ContactsContract.RawContacts.CONTENT_URI)
+                    .withSelection(ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
+                            new String[]{selectedContactId})
+                    .build());
+
+            try {
+                cr.applyBatch(ContactsContract.AUTHORITY, ops);
+                ops.clear();
+            } catch (OperationApplicationException e) {
+                e.printStackTrace();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        } else{
+            Toast.makeText(MainActivity.this, "Выберите контакт", Toast.LENGTH_SHORT).show();
+        }
+        updateListContacts();
+    }
+
+    protected void updateListContacts() {
+        mName.setText(""); mPhone.setText("");
+        contacts.clear();
+        loadContacts();
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button_add:
+                add();
+                break;
+            case R.id.button_delete:
+                delete();
+                break;
+        }
     }
 }
