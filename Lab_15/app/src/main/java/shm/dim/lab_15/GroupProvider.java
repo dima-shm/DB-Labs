@@ -22,7 +22,7 @@ public class GroupProvider extends ContentProvider {
 
     static final String GROUP_NAME = "NAME";
     static final String GROUP_ID = "_id";
-    static final String GROUP_TABLE = "groups";
+    static final String GROUP_TABLE = "GROUP_";
 
     // Общий Uri
     public static final Uri GROUP_CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + PATH);

@@ -21,7 +21,7 @@ public class StudentProvider extends ContentProvider {
 
     static final String STUDENT_NAME = "NAME";
     static final String STUDENT_ID = "IDSTUDENT";
-    static final String STUDENT_TABLE = "student";
+    static final String STUDENT_TABLE = "STUDENT";
 
     // Общий Uri
     public static final Uri STUDENT_CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + PATH);
